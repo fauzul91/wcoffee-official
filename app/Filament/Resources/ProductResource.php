@@ -32,7 +32,7 @@ class ProductResource extends Resource
                 Forms\Components\FileUpload::make('thumbnail')
                     ->label('Thumbnail')
                     ->image(),
-                Forms\Components\TextInput::make('description')
+                Forms\Components\Textarea::make('description')
                     ->label('Deskripsi Produk')
                     ->maxLength(500),
             ]);

@@ -22,6 +22,14 @@ class Product extends Model
         return 'slug';
     }
 
+    public function productVarian()
+    {
+        return $this->hasMany(ProductVarian::class);
+    }
+    public function productPhoto()
+    {
+        return $this->hasMany(ProductPhoto::class);
+    }
     public static function boot()
     {
         parent::boot();

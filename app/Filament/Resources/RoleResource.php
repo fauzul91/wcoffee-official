@@ -18,8 +18,10 @@ use Filament\Tables\Columns\TextColumn;
 class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
-    protected static ?string $navigationGroup = 'Manajemen Role';
+    protected static ?string $navigationGroup = 'Manajemen User';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static bool $shouldRegisterNavigation = false;
+
 
     public static function form(Form $form): Form
     {
