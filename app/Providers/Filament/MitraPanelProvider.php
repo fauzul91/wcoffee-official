@@ -31,6 +31,7 @@ class MitraPanelProvider extends PanelProvider
         return $panel
             ->id('mitra')
             ->path('mitra')
+            ->favicon('assets/images/logos/logo-64.png')
             ->colors([
                 'primary' => Color::hex('#2F6A62'),                
             ])

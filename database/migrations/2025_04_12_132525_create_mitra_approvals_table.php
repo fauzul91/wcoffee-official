@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('siup');
             $table->string('link_gmaps');
             $table->string('deskripsi_mitra');
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected', 'cancelled'])->default('pending');
             $table->boolean('is_notified')->default(false);
             $table->foreignId('mitra_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();

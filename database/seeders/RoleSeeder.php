@@ -23,7 +23,7 @@ class RoleSeeder extends Seeder
         $admin = User::updateOrCreate(
             ['email' => 'admin@example.com'],
             [
-                'name' => 'Admin User',
+                'name' => 'WCoffee',
                 'phone' => '081234567890',
                 'password' => Hash::make('password'),
             ]

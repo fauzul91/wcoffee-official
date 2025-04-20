@@ -29,6 +29,7 @@ class CustomerPanelProvider extends PanelProvider
             ->colors([
                 'primary' => Color::hex('#2F6A62'),
             ])
+            ->favicon('assets/images/logos/logo-64.png')
             ->profile(EditProfile::class, true)
             ->discoverResources(in: app_path('Filament/Customer/Resources'), for: 'App\\Filament\\Customer\\Resources')
             ->discoverPages(in: app_path('Filament/Customer/Pages'), for: 'App\\Filament\\Customer\\Pages')

@@ -12,14 +12,21 @@ use Illuminate\Support\Facades\Storage;
 use Filament\Forms\Components\TextInput;
 use Filament\Notifications\Notification;
 use Filament\Forms\Components\FileUpload;
-
-class AjukanKerjasama extends Page
+use Filament\Actions\Concerns\InteractsWithActions;
+use Filament\Actions\Contracts\HasActions;
+use Filament\Forms\Concerns\InteractsWithForms;
+use Filament\Forms\Contracts\HasForms;
+use Filament\Actions\Action;
+class AjukanKerjasama extends Page implements HasForms, HasActions
 {
+    use InteractsWithActions;
+    use InteractsWithForms;
     protected static ?string $navigationIcon = 'heroicon-o-document-text';
 
     protected static string $view = 'filament.mitra.pages.ajukan-kerjasama';
 
     public $user;
+
     public ?string $status = null;
     public ?MitraApproval $pengajuan = null;
     public ?array $data = [];
@@ -141,4 +148,54 @@ class AjukanKerjasama extends Page
     
         $this->redirect('/mitra');    
     }
+
+    public function cancel()
+    {
+        if ($this->pengajuan && $this->pengajuan->status === 'pending') {
+            $this->pengajuan->update(['status' => 'cancelled']);
+
+            Notification::make()
+                ->title('Pengajuan berhasil dibatalkan.')
+                ->success()
+                ->send();
+
+            $this->redirect('/mitra');
+        } else {
+            Notification::make()
+                ->title('Pengajuan tidak bisa dibatalkan.')
+                ->danger()
+                ->send();
+        }
+    }
+
+    public function cancelCooperation(): Action
+    {
+        return Action::make('cancelCooperation')
+            ->label('Batalkan Kerjasama')
+            ->color('danger')
+            ->requiresConfirmation()
+            ->action(function () {
+                // Gunakan $this->pengajuan untuk mendapatkan objek MitraApproval
+                $approval = $this->pengajuan;
+    
+                // Pastikan objek MitraApproval ada sebelum melakukan update
+                if ($approval) {
+                    $approval->update(['status' => 'cancelled']);
+    
+                    // Perbarui status di dalam Livewire
+                    $this->status = 'cancelled';
+    
+                    Notification::make()
+                        ->title('Pengajuan kerjasama berhasil dibatalkan.')
+                        ->success()
+                        ->send();
+                } else {
+                    Notification::make()
+                        ->title('Pengajuan kerjasama tidak ditemukan.')
+                        ->danger()
+                        ->send();
+                }
+            });
+    }
 }
+

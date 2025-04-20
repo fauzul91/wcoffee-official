@@ -32,14 +32,7 @@ class RegisterCustomer extends AuthRegister
     {
         return Forms\Components\TextInput::make('phone_number')
             ->label('Phone Number')
-            ->maxLength(15)  
-            ->string()
-            ->rule('required|min:10|max:15') // Validasi Laravel jalan di backend
-            ->validationMessages([
-                'required' => 'Silakan isi nomor HP Anda.',
-                'min' => 'Nomor terlalu pendek (min. 10 digit).',
-                'max' => 'Nomor terlalu panjang (maks. 15 digit).',
-            ]);                   
+            ->required();                   
     }
 
     protected function handleRegistration(array $data): User
