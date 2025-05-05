@@ -34,17 +34,15 @@ class ProductVarianResource extends Resource
                     ->label('Produk'),
                 Select::make('category_id')
                     ->relationship('category', 'name')
-                    ->required()
+                    ->required()                    
                     ->label('Kategori'),
                 TextInput::make('price')
                     ->numeric()
                     ->required()
                     ->prefix('Rp'),
-
                 TextInput::make('stock')
                     ->numeric()
                     ->required(),
-
                 Textarea::make('description')
                     ->label('Deskripsi Varian')
                     ->rows(3),
@@ -61,7 +59,7 @@ class ProductVarianResource extends Resource
                     ->label('Nama Produk'),
                 Tables\Columns\TextColumn::make('category.name')
                     ->sortable()
-                    ->searchable()
+                    ->searchable()                    
                     ->label('Nama Kategori'),
                 Tables\Columns\TextColumn::make('price')
                     ->sortable()
@@ -76,6 +74,7 @@ class ProductVarianResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
+                Tables\Actions\DeleteAction::make(),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

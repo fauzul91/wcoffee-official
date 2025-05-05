@@ -16,13 +16,17 @@ class RegisterCustomer extends AuthRegister
     {
         return  $this->makeForm()
             ->schema([
-                $this->getNameFormComponent()->label('Nama')
-                ->validationMessages([
-                    'required' => 'Silakan isi alamat nama kamu.',
-                ]),
+                $this->getNameFormComponent()->label('Nama'),                
                 $this->getPhoneFormComponent(),
-                $this->getEmailFormComponent(),
-                $this->getPasswordFormComponent(),
+                $this->getEmailFormComponent()
+                ->unique(ignoreRecord: true)
+                ->validationMessages([
+                    'unique' => 'Email sudah terdaftar!', 
+                ]),
+                $this->getPasswordFormComponent()
+                ->validationMessages([
+                    'same' => 'Password dan konfirmasi password tidak cocok', 
+                ]),
                 $this->getPasswordConfirmationFormComponent(),                        
             ])
             ->statePath('data');

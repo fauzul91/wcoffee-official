@@ -12,7 +12,7 @@ class RegisterResponse extends BaseRegisterResponse
     public function toResponse($request): RedirectResponse|Redirector
     {    
         if (auth()->user()->hasRole('mitra')) {
-            return redirect()->to(Dashboard::getUrl(panel: 'mitra'));
+            return redirect()->to(route('mitra.dashboard'));
         }
 
         if (auth()->user()->hasRole('customer')) {

@@ -15,10 +15,17 @@ class RegisterMitra extends AuthRegister
     {
         return  $this->makeForm()
             ->schema([
-                $this->getNameFormComponent(),
+                $this->getNameFormComponent()->label('Nama Bisnis'),
                 $this->getPhoneFormComponent(),
-                $this->getEmailFormComponent(),
-                $this->getPasswordFormComponent(),
+                $this->getEmailFormComponent()
+                ->unique(ignoreRecord: true)
+                ->validationMessages([
+                    'unique' => 'Email sudah terdaftar!', 
+                ]),     
+                $this->getPasswordFormComponent()
+                ->validationMessages([
+                    'same' => 'Password dan konfirmasi password tidak cocok', 
+                ]),
                 $this->getPasswordConfirmationFormComponent(),                        
             ])
             ->statePath('data');
@@ -26,7 +33,7 @@ class RegisterMitra extends AuthRegister
 
     protected function getPhoneFormComponent(): Component
     {
-        return Forms\Components\TextInput::make('phone_number')
+        return Forms\Components\TextInput::make('phone')
             ->required()
             ->label('Phone Number')
             ->maxLength(15)  

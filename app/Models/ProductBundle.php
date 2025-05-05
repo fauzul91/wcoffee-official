@@ -8,7 +8,14 @@ class ProductBundle extends Model
 {
     protected $fillable = [
         'name',
+        'slug',
         'description',
         'thumbnail',
+        'type',
     ];
+
+    public function productBundleItems()
+    {
+        return $this->hasMany(ProductBundleItem::class);
+    }
 }

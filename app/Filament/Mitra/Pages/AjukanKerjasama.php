@@ -91,6 +91,7 @@ class AjukanKerjasama extends Page implements HasForms, HasActions
                     TextInput::make('link_gmaps')
                         ->label('Link Google Maps')
                         ->required()
+                        ->url()
                         ->maxLength(255)
                         ->disabled($isDisabled),
 

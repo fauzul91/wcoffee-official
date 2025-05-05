@@ -13,7 +13,6 @@ use Illuminate\Session\Middleware\StartSession;
 use App\Filament\Customer\Auth\RegisterCustomer;
 use Illuminate\Cookie\Middleware\EncryptCookies;
 use Filament\Http\Middleware\AuthenticateSession;
-use App\Http\Middleware\RedirectIfNotFilamentAdmin;
 use Illuminate\Routing\Middleware\SubstituteBindings;
 use Illuminate\View\Middleware\ShareErrorsFromSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -32,6 +31,7 @@ class AdminPanelProvider extends PanelProvider
             ->path('dashboard')
             ->plugin(SimpleLightBoxPlugin::make())
             ->brandLogo(asset('assets/images/logos/logo.svg'))
+            ->darkModeBrandLogo(asset('assets/images/logos/dark-logo.svg'))            
             ->brandLogoHeight('2.5rem')
             ->login()
             ->favicon(asset('assets/images/logos/logo-64.png'))

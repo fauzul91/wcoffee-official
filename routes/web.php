@@ -3,18 +3,22 @@
 use App\Http\Controllers\AuthController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', action: function () {
-    return view('index');
-})->name('home');
+// ==========================
+// Guest Routes (Public)
+// ==========================
+Route::view('/', 'index')->name('home');
+Route::view('/shop', 'shop')->name('shop');
+Route::view('/join-us', 'join-us')->name('join-us');
 
-Route::get('/shop', function () {
-    return view('pages.shop');
-})->name('shop');
-
-Route::get('/join-us', function () {
-    return view('pages.join-us');
-})->name('join-us');  
-
-Route::middleware('auth')->group(function () {
-    Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+// ==========================
+// Mitra Routes
+// ==========================
+Route::middleware(['auth'])->group(function () {
+    Route::view('/mitra', 'mitra.dashboard')->name('mitra.dashboard');
+    Route::view('/ajukan-kerjasama', 'mitra.ajukan-kerjasama')->name('mitra.ajukan-kerjasama');
 });
+
+// ==========================
+// Authenticated Routes
+// ==========================
+Route::middleware('auth')->post('/logout', [AuthController::class, 'logout'])->name('logout');

@@ -26,4 +26,9 @@ class ProductVarian extends Model
     {
         return $this->belongsTo(Category::class);
     }
+
+    public static function canDelete(Model $record): bool
+    {
+        return \App\Models\ProductVarian::where('category_id', $record->id)->count() === 0 || \App\Models\ProductVarian::where('product_id', $record->id)->count() === 0;
+    }
 }

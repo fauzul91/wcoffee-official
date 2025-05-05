@@ -11,7 +11,7 @@ class ProductBundleItem extends Model
         'product_varian_id',
         'promo_id',
         'price',
-        'stock',
+        'quantity',
     ];
 
     public function productBundle()

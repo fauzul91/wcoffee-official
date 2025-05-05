@@ -29,7 +29,7 @@ return [
     'notifications' => [
 
         'created' => [
-            'title' => 'Data berhasil dibuat',
+            'title' => 'Data berhasil ditambahkan',
         ],
 
     ],

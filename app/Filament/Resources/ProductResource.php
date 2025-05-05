@@ -2,16 +2,18 @@
 
 namespace App\Filament\Resources;
 
-use App\Filament\Resources\ProductResource\Pages;
-use App\Filament\Resources\ProductResource\RelationManagers;
-use App\Models\Product;
 use Filament\Forms;
-use Filament\Forms\Form;
-use Filament\Resources\Resource;
 use Filament\Tables;
+use App\Models\Product;
+use Filament\Forms\Form;
 use Filament\Tables\Table;
+use Filament\Resources\Resource;
+use Filament\Forms\Components\Repeater;
+use Filament\Forms\Components\FileUpload;
 use Illuminate\Database\Eloquent\Builder;
+use App\Filament\Resources\ProductResource\Pages;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use App\Filament\Resources\ProductResource\RelationManagers;
 
 class ProductResource extends Resource
 {
@@ -27,14 +29,23 @@ class ProductResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->required()
+                    ->columnSpanFull()
                     ->label('Nama Produk')
                     ->maxLength(255),                
+                Forms\Components\RichEditor::make('description')
+                    ->label('Deskripsi Produk')
+                    ->columnSpanFull(),
                 Forms\Components\FileUpload::make('thumbnail')
                     ->label('Thumbnail')
                     ->image(),
-                Forms\Components\Textarea::make('description')
-                    ->label('Deskripsi Produk')
-                    ->maxLength(500),
+                Repeater::make('photos')
+                    ->relationship('productPhoto')
+                    ->label('Foto Produk')
+                    ->schema([
+                        FileUpload::make('photo')
+                            ->label('Foto')
+                            ->required(),
+                    ])
             ]);
     }
 
@@ -48,9 +59,7 @@ class ProductResource extends Resource
                     ->label('Nama Produk'),
                 Tables\Columns\ImageColumn::make('thumbnail')
                     ->label('Thumbnail')
-                    ->circular(),
-                Tables\Columns\TextColumn::make('description')
-                    ->label('Deskripsi Produk'),
+                    ->circular(),                
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

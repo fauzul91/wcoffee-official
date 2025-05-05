@@ -30,12 +30,13 @@ class MitraPanelProvider extends PanelProvider
     {
         return $panel
             ->id('mitra')
-            ->path('mitra')
+            ->path('mitras')
             ->favicon('assets/images/logos/logo-64.png')
             ->colors([
                 'primary' => Color::hex('#2F6A62'),                
             ])
-            ->profile(EditProfile::class, false)
+            ->topNavigation()
+            ->profile(EditProfile::class, true)
             ->registration(RegisterMitra::class)
             ->brandLogo(asset('assets/images/logos/logo.svg'))
             ->brandLogoHeight('2.5rem')
